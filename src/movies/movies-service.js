@@ -8,7 +8,15 @@ const moviesService = {
     },
     getById(movie) {
         return movie;
+    },
+    deleteMovie(movies, movieToDelete) {
+        movies.splice(movieToDelete, 1)
+        return movies;
+    },
+    updateMovie(movieToUpdate) {
+        return movieToUpdate;
     }
+
 }
 
 module.exports = moviesService

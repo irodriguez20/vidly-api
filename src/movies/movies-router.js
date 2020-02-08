@@ -56,5 +56,25 @@ moviesRouter
         res.send(moviesService.getById(movie))
         next()
     })
+    .delete(bodyParser, (req, res, next) => {
+        const movieToDelete = movies.find(m => m.id === parseInt(req.params.id))
+        if (!movieToDelete) { return res.status(404).send(`Movie with id ${req.params.id} not found`) }
+
+        res.send(moviesService.deleteMovie(movies, movieToDelete))
+        next()
+    })
+    .patch(bodyParser, (req, res, next) => {
+        const movie = movies.find(m => m.id === parseInt(req.params.id))
+        if (!movie) { return res.status(404).send(`Movie with id ${req.params.id} not found`) }
+
+        const { name, genre, price } = req.body
+        let movieToUpdate = {
+            name: name,
+            genre: genre,
+            price: price
+        }
+
+        res.send(moviesService.updateMovie(movieToUpdate))
+    })
 
 module.exports = moviesRouter
